@@ -26,14 +26,18 @@ if(isset($_REQUEST['email']) && isset($_REQUEST['password'])) {
         }
     } 
 }
-
-
-
 ?>
+<h1>Zaloguj się</h1>
 <form action="index.php" method="get">
+    
+</form>
+<h1>Zarejestruj się</h1>
+<form action="index.php" method="post">
     <label for="emailInput">Email:</label>
     <input type="email" name="email" id="emailInput" required>
     <label for="passwordInput">Password:</label>
     <input type="password" name="password" id="passwordInput" required>
+    <label for="passwordRepeat">Confirm password:</label>
+    <input type="password" name="password" id="passwordRepeat" required>
     <input type="submit" value="Zaloguj">
 </form>
