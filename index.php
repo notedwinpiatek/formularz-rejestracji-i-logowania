@@ -26,12 +26,32 @@ if(isset($_REQUEST['email']) && isset($_REQUEST['password'])) {
         }
     } 
 }
-?>
-<h1>Zaloguj się</h1>
-<form action="index.php" method="get">
+if(isset($_REQUEST['action']) && isset($_REQUEST['action'])) {
+    $db = new mysqli("localhost", "root", "", "auth");
+    $email = $_REQUEST['email'];
+
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL); 
+
+    $password = $_REQUEST['password'];
+    $passwordRepeat = $_REQUEST['passwordRepeat'];
     
+    if($password == $passwordRepeat){
+
+    } else {
+        echo "Passwords are not identical - try again!";
+    }
+}
+?>
+<h1>Log in</h1>
+<form action="index.php" method="get">
+<label for="emailInput">Email:</label>
+    <input type="email" name="email" id="emailInput" required>
+    <label for="passwordInput">Password:</label>
+    <input type="password" name="password" id="passwordInput" required>
+    <input type="hidden" name="action" value="login">
+    <input type="submit" value="Log in">
 </form>
-<h1>Zarejestruj się</h1>
+<h1>Register</h1>
 <form action="index.php" method="post">
     <label for="emailInput">Email:</label>
     <input type="email" name="email" id="emailInput" required>
@@ -39,5 +59,5 @@ if(isset($_REQUEST['email']) && isset($_REQUEST['password'])) {
     <input type="password" name="password" id="passwordInput" required>
     <label for="passwordRepeat">Confirm password:</label>
     <input type="password" name="password" id="passwordRepeat" required>
-    <input type="submit" value="Zaloguj">
+    <input type="submit" value="Register">
 </form>
