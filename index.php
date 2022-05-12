@@ -36,7 +36,15 @@ if(isset($_REQUEST['action']) && isset($_REQUEST['action'])) {
     $passwordRepeat = $_REQUEST['passwordRepeat'];
     
     if($password == $passwordRepeat){
-
+        $q = $db->prepare("INSERT INTO user VALUES (NULL, ?, ?");
+        $passwordHash = password_hash($password, PASSWORD_ARGON2I);
+        $q->bind_param("ss", $email, $passwordHash);
+        $result = $q->execute();
+        if($result) {
+            echo "Account created correctly";
+        } else {
+            echo "Something went wrong!";
+        }
     } else {
         echo "Passwords are not identical - try again!";
     }
@@ -58,6 +66,6 @@ if(isset($_REQUEST['action']) && isset($_REQUEST['action'])) {
     <label for="passwordInput">Password:</label>
     <input type="password" name="password" id="passwordInput" required>
     <label for="passwordRepeat">Confirm password:</label>
-    <input type="password" name="password" id="passwordRepeat" required>
+    <input type="password" name="passwordRepeat" id="passwordRepeatInput" required>
     <input type="submit" value="Register">
 </form>
