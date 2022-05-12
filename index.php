@@ -1,6 +1,10 @@
 <?php
 
+$passwd = "tajneHaslo";
 
+$hash = password_hash($passwd, PASSWORD_ARGON2I);
+
+echo $hash;
 
 ?>
 <form action="index.php" method="get">
