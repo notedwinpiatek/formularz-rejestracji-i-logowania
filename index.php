@@ -1,10 +1,20 @@
 <?php
 
-$passwd = "tajneHaslo";
+$email = $_REQUEST['email'];
+$password = $_REQUEST['password'];
 
-$hash = password_hash($passwd, PASSWORD_ARGON2I);
+$email = filter_var($email, FILTER_SANITIZE_EMAIL); 
 
-echo $hash;
+$db = new mysqli("localhost", "root", "", "auth");
+$q = "SELECT * FROM user WHERE email = $email";
+$db->query($q);
+
+$q = $db->prepare("SELECT * FROM user WHERE email = ?");
+
+$q->bind_param("s", $email);
+$q->execute();
+$result = $q->get_result();
+
 
 ?>
 <form action="index.php" method="get">
